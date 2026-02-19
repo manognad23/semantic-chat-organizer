@@ -31,10 +31,8 @@ const buttonVariants = cva(
 );
 
 export interface ButtonProps
-  extends Omit<HTMLMotionProps<"button">, "className">,
-    VariantProps<typeof buttonVariants> {
-  className?: string;
-}
+  extends HTMLMotionProps<"button">,
+    VariantProps<typeof buttonVariants> {}
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, ...props }, ref) => {
@@ -44,7 +42,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         transition={{ type: "spring", stiffness: 400, damping: 17 }}
-        className={cn(buttonVariants({ variant, size }), className)}
+        className={cn(buttonVariants({ variant, size, className }))}
         {...props}
       />
     );
