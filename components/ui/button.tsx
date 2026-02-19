@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { motion, type HTMLMotionProps } from "framer-motion";
+import { motion, type HTMLMotionProps, type AnimationProps } from "framer-motion";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
@@ -30,8 +30,9 @@ const buttonVariants = cva(
 
 type ButtonBaseProps = VariantProps<typeof buttonVariants>;
 
+// Exclude conflicting animation event handlers
 export type ButtonProps = ButtonBaseProps &
-  Omit<HTMLMotionProps<"button">, keyof ButtonBaseProps>;
+  Omit<HTMLMotionProps<"button">, keyof ButtonBaseProps | "onAnimationStart" | "onAnimationComplete">;
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, ...props }, ref) => {
