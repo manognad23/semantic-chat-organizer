@@ -1,103 +1,55 @@
-Chat Organizer
+# Chat Organizer
 
 A production-quality web application that organizes pasted conversations into semantic blocks and enables instant search through them. Built with Next.js 14, TypeScript, Tailwind CSS, and Framer Motion.
+https://semantic-chat-organizer-xp7n.vercel.app/
 
-Live Demo: https://semantic-chat-organizer-xp7n.vercel.app/
+## Overview
 
-Overview
+Chat Organizer takes raw conversation text (e.g., User/Assistant format), parses it into message pairs, categorizes them by topic using keyword heuristics, and displays them in structured semantic blocks. Users can search across all blocks with live filtering and highlighted matches. Blocks persist using localStorage.
 
-Chat Organizer takes raw conversation text (e.g., User/Assistant format), parses it into structured message pairs, categorizes them into meaningful semantic blocks using a deterministic scoring system, and displays them in an interactive UI.
+## Tech Stack
 
-Users can instantly search across organized blocks with live filtering and highlighted matches. The application maintains persistence using localStorage.
+- **Frontend**: Next.js 14 (App Router), TypeScript, Tailwind CSS, custom UI components, Framer Motion
+- **Backend**: Next.js API routes (Node.js runtime)
+- **State & Persistence**: LocalStorage (blocks persist after refresh)
+- **Deployment**: Vercel
 
-Tech Stack
+## Features
 
-Frontend: Next.js 14 (App Router), TypeScript, Tailwind CSS
+- **Chat Input**: Large centered text area with example placeholder, "Ingest & Organize" button, error handling, loading state with animated text
+- **Semantic Organization**: Parses User/Assistant format, groups into 4–5 blocks (Pricing Strategy, Competitor Analysis, Sales Team, Free Trial, General)
+- **Search**: Live filtering, highlighted matches, "No results found" state
+- **UI/UX**: Background animations, theme toggle (light/dark), Framer Motion transitions, responsive design
+- **Persistence**: Blocks stored in `localStorage` and restored on page load
 
-UI Enhancements: Framer Motion, Custom UI components
+## Setup
 
-Backend: Next.js API Routes
-
-State & Persistence: React state + localStorage
-
-Deployment: Vercel
-
-Features
-
-Landing Page & Theming
-
-Background animations
-
-Theme toggle (light/dark)
-
-Clean responsive layout
-
-Conversation Ingestion
-
-Large input area
-
-Supports formats:
-
-User: / Assistant:
-
-Human: / AI:
-
-Q: / A:
-
-Loading animation during processing
-
-Semantic Organization
-
-Regex-based parsing
-
-Keyword-scored categorization
-
-Grouping into up to 5 semantic blocks
-
-Pipeline visualization of processing steps
-
-Search
-
-Live client-side filtering
-
-Highlighted substring matches
-
-Empty state handling
-
-Persistence
-
-Blocks stored in localStorage
-
-Restored automatically on refresh
-
-Setup
+```bash
 # Install dependencies
 npm install
 
 # Run development server
 npm run dev
+```
 
-Open:
+Open http://localhost:3000
 
-http://localhost:3000
-Environment Variables
+## Environment Variables
 
-The application works without environment variables.
+The application works without environment variables by default.
 
-However, AI-based categorization support exists structurally.
+Optional AI-based categorization support:
 
-To enable AI categorization (optional):
+| Variable | Required | Description |
+|----------|----------|------------|
+| `USE_AI` | No | Set to `true` to enable AI-based categorization |
+| `OPENAI_API_KEY` | Only if USE_AI=true | Your OpenAI API key |
 
-Create a file named .env.local
+If not configured, the app defaults to deterministic keyword-based categorization.
 
-Add:
+## Project Structure
 
-USE_AI=true
-OPENAI_API_KEY=your_key_here
-
-If not provided, the system defaults to deterministic keyword-based categorization.
-
-Project Structure
+```
 Tector_Manu/
 │
 ├── app/
@@ -144,80 +96,37 @@ Tector_Manu/
 ├── tsconfig.json
 ├── tailwind.config.ts
 └── postcss.config.js
-Approach
+```
 
-Parsing Layer
+## Approach
 
-Regex-based detection of structured conversation formats.
+1. **Parsing**: Regex-based parsing handles `User:`/`Assistant:`, `Human:`/`AI:`, `Q:`/`A:` formats. Falls back to double-newline splitting for plain text.
 
-Each User–Assistant pair treated as one semantic unit.
+2. **Categorization**: Keyword heuristics score each message pair against predefined categories (pricing, competitors, sales, trial). Pairs are grouped into blocks (max 5). AI-based categorization is supported via a separate module.
 
-Fallback to newline-based splitting when format is inconsistent.
+3. **Search**: Client-side filtering with substring match; matching text is highlighted in results.
 
-Categorization Layer
+4. **Persistence**: Blocks stored in `localStorage` and restored on page load.
 
-Keyword scoring system across predefined themes:
+## Time Spent
 
-Pricing Strategy
+- Project setup & config: ~15 min  
+- Types, parser, categorizer: ~25 min  
+- API route: ~10 min  
+- UI components & animations: ~35 min  
+- Main page & state: ~20 min  
+- Polish, testing: ~15 min  
 
-Competitor Analysis
+**Total: ~2 hours**
 
-Sales Team
+## Future Improvements
 
-Free Trial
+- [ ] Smarter semantic clustering (embedding-based grouping)  
+- [ ] Dynamic AI-generated categories  
+- [ ] Export blocks to JSON/Markdown  
+- [ ] Block reordering / merging  
+- [ ] Conversation history (multiple sessions)
 
-General
-
-Highest scoring category assigned to each pair.
-
-Grouped into semantic blocks (maximum 5).
-
-Search Layer
-
-Client-side filtering.
-
-Real-time matching.
-
-Highlighting of matched text.
-
-Persistence
-
-Organized blocks stored in localStorage.
-
-Automatically restored on page reload.
-
-Time Spent
-
-Setup & configuration – 15 min
-
-Parser & categorization logic – 25 min
-
-API route – 10 min
-
-UI components & animations – 35 min
-
-State management & persistence – 20 min
-
-Testing & refinement – 15 min
-
-Total: ~2 hours
-
-Future Improvements
-
-Embedding-based semantic clustering
-
-Dynamic AI-generated categories
-
-Export blocks (JSON / Markdown)
-
-Conversation history tracking
-
-Block reordering / merging
-
-Improved scoring algorithm
-
-License
-
-MIT License
-
+## License
+ 
 © 2026 Manogna Shree Dasari – IIIT Sri City
