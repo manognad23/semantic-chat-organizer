@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light: Elegant Editorial */
+    --background: 40 15% 98%;
+    --foreground: 200 25% 8%;
+    --card: 0 0% 100%;
+    --card-foreground: 200 25% 8%;
+    --primary: 168 76% 42%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 40 12% 94%;
+    --secondary-foreground: 200 15% 35%;
+    --muted: 40 12% 94%;
+    --muted-foreground: 200 10% 45%;
+    --accent: 168 76% 96%;
+    --accent-foreground: 168 76% 30%;
+    --border: 40 10% 90%;
+    --input: 40 10% 90%;
+    --ring: 168 76% 42%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --highlight: 24 95% 53%;
+    --highlight-foreground: 0 0% 100%;
+    /* Gradient stops for emerald → teal → cyan */
+    --gradient-from: 168 76% 42%;
+    --gradient-via: 173 80% 40%;
+    --gradient-to: 187 85% 43%;
+    /* Surfaces */
+    --surface: 0 0% 100%;
+    --surface-elevated: 40 15% 98%;
+    /* Glow */
+  }
+
+  .dark {
+    /* Dark: Deep Professional - #0b1215 feel */
+    --background: 200 28% 5%;
+    --foreground: 40 10% 98%;
+    --card: 200 20% 7%;
+    --card-foreground: 40 10% 98%;
+    --primary: 168 76% 48%;
+    --primary-foreground: 200 25% 4%;
+    --secondary: 200 18% 12%;
+    --secondary-foreground: 40 8% 75%;
+    --muted: 200 18% 12%;
+    --muted-foreground: 200 10% 55%;
+    --accent: 168 76% 20%;
+    --accent-foreground: 168 76% 75%;
+    --border: 200 15% 18%;
+    --input: 200 15% 18%;
+    --ring: 168 76% 48%;
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --highlight: 24 95% 55%;
+    --highlight-foreground: 0 0% 100%;
+    --gradient-from: 168 76% 48%;
+    --gradient-via: 173 80% 45%;
+    --gradient-to: 187 85% 48%;
+    --surface: 200 20% 7%;
+    --surface-elevated: 200 18% 11%;
+  }
+}
+
+body {
+  @apply bg-background text-foreground;
+  background-attachment: fixed;
+  min-height: 100vh;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* Subtle noise texture */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+.dark body::before {
+  opacity: 0.04;
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-card/80 backdrop-blur-xl border border-border/50;
+  }
+  .glass-card {
+    @apply bg-card/90 backdrop-blur-xl border border-border/60 shadow-soft;
+  }
+  .dark .glass-card {
+    @apply bg-card/80 shadow-glow;
+  }
+  .gradient-accent {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--gradient-from)) 0%,
+      hsl(var(--gradient-via)) 50%,
+      hsl(var(--gradient-to)) 100%
+    );
+  }
+  .gradient-accent-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      135deg,
+      hsl(var(--gradient-from)) 0%,
+      hsl(var(--gradient-via)) 50%,
+      hsl(var(--gradient-to)) 100%
+    );
+  }
+}
