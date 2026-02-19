@@ -29,8 +29,18 @@ const buttonVariants = cva(
   }
 );
 
+type SafeMotionButtonProps = Omit<
+  HTMLMotionProps<"button">,
+  | "onAnimationStart"
+  | "onAnimationEnd"
+  | "onDrag"
+  | "onDragStart"
+  | "onDragEnd"
+  | "onDragOver"
+>;
+
 export interface ButtonProps
-  extends Omit<HTMLMotionProps<"button">, "className">,
+  extends SafeMotionButtonProps,
     VariantProps<typeof buttonVariants> {
   className?: string;
 }
