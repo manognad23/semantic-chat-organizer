@@ -29,18 +29,8 @@ const buttonVariants = cva(
   }
 );
 
-type SafeMotionButtonProps = Omit<
-  HTMLMotionProps<"button">,
-  | "onAnimationStart"
-  | "onAnimationEnd"
-  | "onDrag"
-  | "onDragStart"
-  | "onDragEnd"
-  | "onDragOver"
->;
-
 export interface ButtonProps
-  extends SafeMotionButtonProps,
+  extends React.ComponentPropsWithoutRef<"button">,
     VariantProps<typeof buttonVariants> {
   className?: string;
 }
@@ -54,7 +44,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         whileTap={{ scale: 0.98 }}
         transition={{ type: "spring", stiffness: 400, damping: 17 }}
         className={cn(buttonVariants({ variant, size }), className)}
-        {...props}
+        {...(props as HTMLMotionProps<"button">)}
       />
     );
   }
